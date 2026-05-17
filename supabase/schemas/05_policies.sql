@@ -81,3 +81,10 @@ create policy "Enable read access for authenticated users" on public.deal_lifegu
 create policy "Enable insert for authenticated users only" on public.deal_lifeguards for insert to authenticated with check (true);
 create policy "Enable update for authenticated users only" on public.deal_lifeguards for update to authenticated using (true) with check (true);
 create policy "Deal Lifeguards Delete Policy" on public.deal_lifeguards for delete to authenticated using (true);
+
+-- Custom Field Definitions (admin-managed)
+alter table public.custom_field_definitions enable row level security;
+create policy "Enable read access for authenticated users" on public.custom_field_definitions for select to authenticated using (true);
+create policy "Enable insert for admins" on public.custom_field_definitions for insert to authenticated with check (public.is_admin());
+create policy "Enable update for admins" on public.custom_field_definitions for update to authenticated using (public.is_admin()) with check (public.is_admin());
+create policy "Enable delete for admins" on public.custom_field_definitions for delete to authenticated using (public.is_admin());

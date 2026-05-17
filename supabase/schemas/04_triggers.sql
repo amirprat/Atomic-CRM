@@ -36,6 +36,10 @@ create or replace trigger set_deal_lifeguard_sales_id_trigger
     before insert on public.deal_lifeguards
     for each row execute function public.set_sales_id_default();
 
+create or replace trigger set_custom_field_definitions_sales_id_trigger
+    before insert on public.custom_field_definitions
+    for each row execute function public.set_sales_id_default();
+
 -- Auto-fetch company logo from website favicon on save
 create or replace trigger company_saved
     before insert or update on public.companies
