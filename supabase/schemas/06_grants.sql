@@ -106,6 +106,14 @@ grant all on table public.favicons_excluded_domains to anon;
 grant all on table public.favicons_excluded_domains to authenticated;
 grant all on table public.favicons_excluded_domains to service_role;
 
+grant all on table public.lifeguards to anon;
+grant all on table public.lifeguards to authenticated;
+grant all on table public.lifeguards to service_role;
+
+grant all on table public.deal_lifeguards to anon;
+grant all on table public.deal_lifeguards to authenticated;
+grant all on table public.deal_lifeguards to service_role;
+
 -- View grants
 grant all on table public.activity_log to anon;
 grant all on table public.activity_log to authenticated;
@@ -159,6 +167,14 @@ grant all on sequence public.tags_id_seq to service_role;
 grant all on sequence public.tasks_id_seq to anon;
 grant all on sequence public.tasks_id_seq to authenticated;
 grant all on sequence public.tasks_id_seq to service_role;
+
+grant all on sequence public.lifeguards_id_seq to anon;
+grant all on sequence public.lifeguards_id_seq to authenticated;
+grant all on sequence public.lifeguards_id_seq to service_role;
+
+grant all on sequence public.deal_lifeguards_id_seq to anon;
+grant all on sequence public.deal_lifeguards_id_seq to authenticated;
+grant all on sequence public.deal_lifeguards_id_seq to service_role;
 
 -- Default privileges
 alter default privileges for role postgres in schema public grant all on sequences to postgres;

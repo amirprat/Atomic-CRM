@@ -67,3 +67,17 @@ create policy "Enable update for admins" on public.configuration for update to a
 
 -- Favicons excluded domains
 create policy "Enable access for authenticated users only" on public.favicons_excluded_domains to authenticated using (true) with check (true);
+
+-- Lifeguards
+alter table public.lifeguards enable row level security;
+create policy "Enable read access for authenticated users" on public.lifeguards for select to authenticated using (true);
+create policy "Enable insert for authenticated users only" on public.lifeguards for insert to authenticated with check (true);
+create policy "Enable update for authenticated users only" on public.lifeguards for update to authenticated using (true) with check (true);
+create policy "Lifeguards Delete Policy" on public.lifeguards for delete to authenticated using (true);
+
+-- Deal Lifeguards
+alter table public.deal_lifeguards enable row level security;
+create policy "Enable read access for authenticated users" on public.deal_lifeguards for select to authenticated using (true);
+create policy "Enable insert for authenticated users only" on public.deal_lifeguards for insert to authenticated with check (true);
+create policy "Enable update for authenticated users only" on public.deal_lifeguards for update to authenticated using (true) with check (true);
+create policy "Deal Lifeguards Delete Policy" on public.deal_lifeguards for delete to authenticated using (true);
