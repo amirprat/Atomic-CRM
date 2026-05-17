@@ -125,6 +125,49 @@ export type Deal = {
   expected_closing_date: string;
   sales_id: Identifier;
   index: number;
+  supervisor_sales_id?: Identifier | null;
+  supervisor_lifeguard_id?: Identifier | null;
+} & Pick<RaRecord, "id">;
+
+export type LifeguardCertification = {
+  type: string;
+  expires?: string;
+};
+
+export type Lifeguard = {
+  first_name: string;
+  last_name: string;
+  email?: string | null;
+  phone?: string | null;
+  hourly_rate_cents?: number | null;
+  certifications: LifeguardCertification[];
+  regions: string[];
+  active: boolean;
+  notes?: string | null;
+  sales_id?: Identifier;
+  created_at: string;
+  updated_at: string;
+} & Pick<RaRecord, "id">;
+
+export type DealLifeguardStatus =
+  | "proposed"
+  | "confirmed"
+  | "on_site"
+  | "declined"
+  | "replaced";
+
+export type DealLifeguard = {
+  deal_id: Identifier;
+  lifeguard_id: Identifier;
+  status: DealLifeguardStatus;
+  is_primary: boolean;
+  assigned_at: string;
+  replaced_at?: string | null;
+  replaced_by?: Identifier | null;
+  notes?: string | null;
+  sales_id?: Identifier;
+  created_at: string;
+  updated_at: string;
 } & Pick<RaRecord, "id">;
 
 export type DealNote = {

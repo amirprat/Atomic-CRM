@@ -25,8 +25,9 @@ import { CompanyAvatar } from "../companies/CompanyAvatar";
 import { NoteCreate } from "../notes/NoteCreate";
 import { NotesIterator } from "../notes/NotesIterator";
 import { useConfigurationContext } from "../root/ConfigurationContext";
-import type { Deal } from "../types";
+import type { Deal, Lifeguard, Sale } from "../types";
 import { ContactList } from "./ContactList";
+import { DealLifeguardsSection } from "./DealLifeguardsSection";
 import { findDealLabel, formatISODateString } from "./dealUtils";
 
 export const DealShow = ({ open, id }: { open: boolean; id?: string }) => {
@@ -166,6 +167,41 @@ const DealShowContent = () => {
             </div>
           )}
 
+          {(record.supervisor_sales_id || record.supervisor_lifeguard_id) && (
+            <div className="m-4">
+              <span className="text-xs text-muted-foreground tracking-wide">
+                Supervisor
+              </span>
+              <div className="text-sm">
+                {record.supervisor_sales_id ? (
+                  <ReferenceField
+                    source="supervisor_sales_id"
+                    reference="sales"
+                    link={false}
+                  >
+                    <SaleName />
+                  </ReferenceField>
+                ) : (
+                  <ReferenceField
+                    source="supervisor_lifeguard_id"
+                    reference="lifeguards"
+                    link="show"
+                  >
+                    <LifeguardName />
+                  </ReferenceField>
+                )}
+              </div>
+            </div>
+          )}
+
+          <div className="m-4">
+            <Separator className="mb-4" />
+            <div className="mb-2 text-xs text-muted-foreground tracking-wide">
+              Lifeguards
+            </div>
+            <DealLifeguardsSection dealId={record.id} readOnly />
+          </div>
+
           <div className="m-4">
             <Separator className="mb-4" />
             <InfiniteListBase
@@ -183,6 +219,28 @@ const DealShowContent = () => {
         </div>
       </div>
     </>
+  );
+};
+
+const SaleName = () => {
+  const record = useRecordContext<Sale>();
+  if (!record) return null;
+  return (
+    <span>
+      {record.first_name} {record.last_name}{" "}
+      <span className="text-xs text-muted-foreground">(staff)</span>
+    </span>
+  );
+};
+
+const LifeguardName = () => {
+  const record = useRecordContext<Lifeguard>();
+  if (!record) return null;
+  return (
+    <span>
+      {record.first_name} {record.last_name}{" "}
+      <span className="text-xs text-muted-foreground">(lifeguard)</span>
+    </span>
   );
 };
 

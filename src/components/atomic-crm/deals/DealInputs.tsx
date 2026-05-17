@@ -1,4 +1,4 @@
-import { required, useTranslate } from "ra-core";
+import { required, useRecordContext, useTranslate } from "ra-core";
 import { AutocompleteArrayInput } from "@/components/admin/autocomplete-array-input";
 import { ReferenceArrayInput } from "@/components/admin/reference-array-input";
 import { ReferenceInput } from "@/components/admin/reference-input";
@@ -12,9 +12,12 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { contactOptionText } from "../misc/ContactOption";
 import { useConfigurationContext } from "../root/ConfigurationContext";
 import { AutocompleteCompanyInput } from "../companies/AutocompleteCompanyInput.tsx";
+import type { Deal, Lifeguard, Sale } from "../types";
+import { DealLifeguardsSection } from "./DealLifeguardsSection";
 
 export const DealInputs = () => {
   const isMobile = useIsMobile();
+  const record = useRecordContext<Deal>();
   return (
     <div className="flex flex-col gap-8">
       <DealInfoInputs />
@@ -24,6 +27,19 @@ export const DealInputs = () => {
         <Separator orientation={isMobile ? "horizontal" : "vertical"} />
         <DealMiscInputs />
       </div>
+
+      <DealStaffingInputs />
+
+      {record?.id ? (
+        <div className="flex flex-col gap-3">
+          <h3 className="text-base font-medium">Lifeguards on this deal</h3>
+          <DealLifeguardsSection dealId={record.id} />
+        </div>
+      ) : (
+        <p className="text-xs text-muted-foreground">
+          Lifeguards can be assigned after the deal is saved.
+        </p>
+      )}
     </div>
   );
 };
@@ -103,3 +119,45 @@ const DealMiscInputs = () => {
     </div>
   );
 };
+
+const saleOptionText = (choice: Sale) =>
+  `${choice.first_name} ${choice.last_name}`;
+
+const lifeguardOptionText = (choice: Lifeguard) =>
+  `${choice.first_name} ${choice.last_name}`;
+
+const DealStaffingInputs = () => (
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Staffing</h3>
+    <p className="text-xs text-muted-foreground -mt-2">
+      A deal can have a supervisor from either staff or the lifeguard roster,
+      but not both.
+    </p>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <ReferenceInput
+        source="supervisor_sales_id"
+        reference="sales"
+        sort={{ field: "last_name", order: "ASC" }}
+        filter={{ "disabled@neq": true }}
+      >
+        <SelectInput
+          label="Supervisor (staff)"
+          optionText={saleOptionText}
+          helperText={false}
+        />
+      </ReferenceInput>
+      <ReferenceInput
+        source="supervisor_lifeguard_id"
+        reference="lifeguards"
+        sort={{ field: "last_name", order: "ASC" }}
+        filter={{ active: true }}
+      >
+        <SelectInput
+          label="Supervisor (lifeguard)"
+          optionText={lifeguardOptionText}
+          helperText={false}
+        />
+      </ReferenceInput>
+    </div>
+  </div>
+);
