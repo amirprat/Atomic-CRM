@@ -14,6 +14,7 @@ import { useConfigurationContext } from "../root/ConfigurationContext";
 import { AutocompleteCompanyInput } from "../companies/AutocompleteCompanyInput.tsx";
 import type { Deal, Lifeguard, Sale } from "../types";
 import { DealLifeguardsSection } from "./DealLifeguardsSection";
+import { DynamicCustomFields } from "../customFields/DynamicCustomFields";
 
 export const DealInputs = () => {
   const isMobile = useIsMobile();
@@ -29,6 +30,8 @@ export const DealInputs = () => {
       </div>
 
       <DealStaffingInputs />
+
+      <DynamicCustomFields entityType="deal" />
 
       {record?.id ? (
         <div className="flex flex-col gap-3">

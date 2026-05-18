@@ -19,6 +19,7 @@ import companies from "../companies";
 import contacts from "../contacts";
 import { Dashboard } from "../dashboard/Dashboard";
 import { MobileDashboard } from "../dashboard/MobileDashboard";
+import customFields from "../customFields";
 import deals from "../deals";
 import lifeguards from "../lifeguards";
 import { Layout } from "../layout/Layout";
@@ -271,6 +272,7 @@ const DesktopAdmin = (
       <Resource name="companies" {...companies} />
       <Resource name="lifeguards" {...lifeguards} />
       <Resource name="deal_lifeguards" />
+      <Resource name="custom_field_definitions" {...customFields} />
       <Resource name="contact_notes" />
       <Resource name="deal_notes" />
       <Resource name="tasks" />

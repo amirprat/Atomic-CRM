@@ -1,4 +1,4 @@
-import { FileText, Import, Settings, User, Users } from "lucide-react";
+import { FileText, Import, Settings, SlidersHorizontal, User, Users } from "lucide-react";
 import { CanAccess, useTranslate, useUserMenu } from "ra-core";
 import { Link, matchPath, useLocation } from "react-router";
 import { RefreshButton } from "@/components/admin/refresh-button";
@@ -98,6 +98,9 @@ const Header = () => {
                   <CanAccess resource="configuration" action="edit">
                     <SettingsMenu />
                   </CanAccess>
+                  <CanAccess resource="custom_field_definitions" action="list">
+                    <CustomFieldsMenu />
+                  </CanAccess>
                   <ImportFromJsonMenuItem />
                   <ChangelogMenuItem />
                 </UserMenu>
@@ -174,6 +177,21 @@ const SettingsMenu = () => {
       <Link to="/settings" className="flex items-center gap-2">
         <Settings />
         {translate("crm.settings.title")}
+      </Link>
+    </DropdownMenuItem>
+  );
+};
+
+const CustomFieldsMenu = () => {
+  const userMenuContext = useUserMenu();
+  if (!userMenuContext) {
+    throw new Error("<CustomFieldsMenu> must be used inside <UserMenu>");
+  }
+  return (
+    <DropdownMenuItem asChild onClick={userMenuContext.onClose}>
+      <Link to="/custom_field_definitions" className="flex items-center gap-2">
+        <SlidersHorizontal />
+        Custom fields
       </Link>
     </DropdownMenuItem>
   );

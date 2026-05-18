@@ -22,6 +22,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 
 import { CompanyAvatar } from "../companies/CompanyAvatar";
+import { DynamicCustomFieldsDisplay } from "../customFields/DynamicCustomFieldsDisplay";
 import { NoteCreate } from "../notes/NoteCreate";
 import { NotesIterator } from "../notes/NotesIterator";
 import { useConfigurationContext } from "../root/ConfigurationContext";
@@ -193,6 +194,11 @@ const DealShowContent = () => {
               </div>
             </div>
           )}
+
+          <div className="m-4">
+            <Separator className="mb-4" />
+            <DynamicCustomFieldsDisplay entityType="deal" />
+          </div>
 
           <div className="m-4">
             <Separator className="mb-4" />

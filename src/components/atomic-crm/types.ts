@@ -100,6 +100,8 @@ export type Contact = {
   phone_jsonb: PhoneNumberAndType[];
   nb_tasks?: number;
   company_name?: string;
+  custom_fields?: Record<string, unknown>;
+  attachments?: AttachmentRecord[];
 } & Pick<RaRecord, "id">;
 
 export type ContactNote = {
@@ -127,7 +129,41 @@ export type Deal = {
   index: number;
   supervisor_sales_id?: Identifier | null;
   supervisor_lifeguard_id?: Identifier | null;
+  custom_fields?: Record<string, unknown>;
+  attachments?: AttachmentRecord[];
 } & Pick<RaRecord, "id">;
+
+export type CustomFieldEntityType = "contact" | "deal";
+
+export type CustomFieldType =
+  | "text"
+  | "number"
+  | "boolean"
+  | "date"
+  | "url"
+  | "select"
+  | "textarea";
+
+export type CustomFieldDefinition = {
+  entity_type: CustomFieldEntityType;
+  field_key: string;
+  label: string;
+  field_type: CustomFieldType;
+  options: { choices?: { value: string; label: string }[]; helperText?: string };
+  display_order: number;
+  active: boolean;
+  sales_id?: Identifier;
+  created_at: string;
+  updated_at: string;
+} & Pick<RaRecord, "id">;
+
+export type AttachmentRecord = {
+  src: string;
+  title?: string;
+  path?: string;
+  type?: string;
+  uploaded_at?: string;
+};
 
 export type LifeguardCertification = {
   type: string;

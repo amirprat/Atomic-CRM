@@ -23,6 +23,7 @@ import { StatusSelector } from "../notes";
 import type { Sale, Contact } from "../types";
 import { Avatar } from "./Avatar";
 import { AutocompleteCompanyInput } from "../companies/AutocompleteCompanyInput.tsx";
+import { DynamicCustomFields } from "../customFields/DynamicCustomFields";
 import {
   contactGender,
   translateContactGenderLabel,
@@ -50,6 +51,8 @@ export const ContactInputs = () => {
           <ContactMiscInputs />
         </div>
       </div>
+      <Separator className="my-2" />
+      <DynamicCustomFields entityType="contact" />
     </div>
   );
 };

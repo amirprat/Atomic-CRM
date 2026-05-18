@@ -24,7 +24,7 @@ const maxContacts = {
 const getRandomContactDetailsType = () =>
   random.arrayElement(["Work", "Home", "Other"]) as "Work" | "Home" | "Other";
 
-export const generateContacts = (db: Db, size = 500): Required<Contact>[] => {
+export const generateContacts = (db: Db, size = 500): Contact[] => {
   const nbAvailblePictures = 223;
   let numberOfContacts = 0;
 

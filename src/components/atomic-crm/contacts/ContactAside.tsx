@@ -13,6 +13,7 @@ import { ContactBackgroundInfo } from "./ContactBackgroundInfo";
 import { AsideSection } from "../misc/AsideSection";
 import type { Contact } from "../types";
 import { ContactMergeButton } from "./ContactMergeButton";
+import { DynamicCustomFieldsDisplay } from "../customFields/DynamicCustomFieldsDisplay";
 import { ExportVCardButton } from "./ExportVCardButton";
 
 export const ContactAside = ({ link = "edit" }: { link?: "edit" | "show" }) => {
@@ -52,6 +53,9 @@ export const ContactAside = ({ link = "edit" }: { link?: "edit" | "show" }) => {
       >
         <TagsListEdit />
       </AsideSection>
+
+      <DynamicCustomFieldsDisplay entityType="contact" />
+
 
       <AsideSection
         title={translate("resources.tasks.name", { smart_count: 2 })}
